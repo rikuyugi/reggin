@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Assignment #1 - Conversion</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        .content {
+            max-width: 800px;
+            margin: 30px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        h1, h2 {
+            text-align: center;
+        }
+
+        .form-section {
+            margin-bottom: 30px;
+        }
+
+        label {
+            font-size: 18px;
+        }
+
+        input[type="number"], button {
+            padding: 10px;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .result {
+            margin-top: 10px;
+            font-size: 20px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Assignment #1 - Conversion</h1>
+    </header>
+
+    <div class="content">
+        <h2>Conversion Between Units</h2>
+
+        <!-- Celsius to Fahrenheit / Fahrenheit to Celsius -->
+        <div class="form-section">
+            <h3>Celsius to Fahrenheit</h3>
+            <label for="celsius">Enter Celsius: </label>
+            <input type="number" id="celsius" placeholder="Celsius">
+            <button onclick="convertCelsiusToFahrenheit()">Convert</button>
+            <p class="result" id="celsiusResult"></p>
+        </div>
+
+        <div class="form-section">
+            <h3>Fahrenheit to Celsius</h3>
+            <label for="fahrenheit">Enter Fahrenheit: </label>
+            <input type="number" id="fahrenheit" placeholder="Fahrenheit">
+            <button onclick="convertFahrenheitToCelsius()">Convert</button>
+            <p class="result" id="fahrenheitResult"></p>
+        </div>
+
+        <!-- Meters to Feet / Feet to Meters -->
+        <div class="form-section">
+            <h3>Meters to Feet</h3>
+            <label for="meters">Enter Meters: </label>
+            <input type="number" id="meters" placeholder="Meters">
+            <button onclick="convertMetersToFeet()">Convert</button>
+            <p class="result" id="metersResult"></p>
+        </div>
+
+        <div class="form-section">
+            <h3>Feet to Meters</h3>
+            <label for="feet">Enter Feet: </label>
+            <input type="number" id="feet" placeholder="Feet">
+            <button onclick="convertFeetToMeters()">Convert</button>
+            <p class="result" id="feetResult"></p>
+        </div>
+
+    </div>
+
+    <footer>
+        <p>&copy; 2024 CS 1130 - All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Conversion Functions
+        function convertCelsiusToFahrenheit() {
+            var celsius = document.getElementById('celsius').value;
+            if (celsius === "") {
+                document.getElementById('celsiusResult').innerHTML = "Please enter a value!";
+                return;
+            }
+            var fahrenheit = (celsius * 9/5) + 32;
+            document.getElementById('celsiusResult').innerHTML = `${celsius}°C is equal to ${fahrenheit.toFixed(2)}°F`;
+        }
+
+        function convertFahrenheitToCelsius() {
+            var fahrenheit = document.getElementById('fahrenheit').value;
+            if (fahrenheit === "") {
+                document.getElementById('fahrenheitResult').innerHTML = "Please enter a value!";
+                return;
+            }
+            var celsius = (fahrenheit - 32) * 5/9;
+            document.getElementById('fahrenheitResult').innerHTML = `${fahrenheit}°F is equal to ${celsius.toFixed(2)}°C`;
+        }
+
+        function convertMetersToFeet() {
+            var meters = document.getElementById('meters').value;
+            if (meters === "") {
+                document.getElementById('metersResult').innerHTML = "Please enter a value!";
+                return;
+            }
+            var feet = meters * 3.28084;
+            document.getElementById('metersResult').innerHTML = `${meters} meters is equal to ${feet.toFixed(2)} feet`;
+        }
+
+        function convertFeetToMeters() {
+            var feet = document.getElementById('feet').value;
+            if (feet === "") {
+                document.getElementById('feetResult').innerHTML = "Please enter a value!";
+                return;
+            }
+            var meters = feet / 3.28084;
+            document.getElementById('feetResult').innerHTML = `${feet} feet is equal to ${meters.toFixed(2)} meters`;
+        }
+    </script>
+
+</body>
+</html>
