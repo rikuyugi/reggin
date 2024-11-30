@@ -106,6 +106,22 @@
             margin: 0;
             text-shadow: 0 0 10px #ff4081, 0 0 20px #ff4081;
         }
+
+        /* Log Container with scroll and max height */
+        .log-container {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #fff;
+            text-align: left;
+            white-space: pre-wrap;
+            max-height: 200px; /* Limit the height */
+            overflow-y: scroll; /* Make it scrollable */
+            background-color: rgba(0, 0, 0, 0.8); /* Add slight background to make logs visible */
+            padding: 10px;
+            border-radius: 6px;
+            box-shadow: 0 4px 10px rgba(0, 255, 0, 0.3);
+        }
+
     </style>
 </head>
 <body>
@@ -129,6 +145,13 @@
 
         <!-- Back to Main Page button -->
         <button onclick="goBack()">Back to Main Page</button>
+        
+        <!-- Delete All Logs button -->
+        <button onclick="clearLogs()">Delete All Logs</button>
+
+        <div class="log-container" id="logContainer">
+            <!-- Logs will appear here -->
+        </div>
     </div>
 
     <footer>
@@ -136,9 +159,18 @@
     </footer>
 
     <script>
+        let logMessages = [];
+
         // Logging function to track deletions/changes
         function logAction(action, details) {
-            console.log(`[${new Date().toISOString()}] ${action}: ${details}`);
+            const logMessage = `[${new Date().toISOString()}] ${action}: ${details}`;
+            logMessages.push(logMessage);
+            displayLogs();
+        }
+
+        // Display logs in the log container
+        function displayLogs() {
+            document.getElementById("logContainer").textContent = logMessages.join("\n");
         }
 
         // Handle the form submission to calculate the payroll
@@ -171,6 +203,14 @@
         function goBack() {
             logAction("Navigation", "Back to main page");
             window.location.href = "index.html";  // Adjust to your main page file name
+        }
+
+        // Function to clear all logs
+        function clearLogs() {
+            logMessages = [];
+            displayLogs();
+            console.clear();  // Optionally clears the browser console
+            logAction("Logs Cleared", "All logs have been deleted.");
         }
     </script>
 
