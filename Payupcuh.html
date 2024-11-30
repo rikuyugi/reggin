@@ -126,6 +126,9 @@
         </form>
 
         <div class="result" id="result"></div>
+
+        <!-- Back to Main Page button -->
+        <button onclick="goBack()">Back to Main Page</button>
     </div>
 
     <footer>
@@ -133,6 +136,7 @@
     </footer>
 
     <script>
+        // Handle the form submission to calculate the payroll
         document.getElementById("payrollForm").addEventListener("submit", function(event) {
             event.preventDefault();
 
@@ -147,6 +151,11 @@
             // Display result
             document.getElementById("result").innerHTML = `<strong>${name}</strong>'s total pay is ₱${pay.toFixed(2)}.`;
         });
+
+        // Function to navigate back to the main page
+        function goBack() {
+            window.location.href = "index.html";  // Adjust to your main page file name
+        }
     </script>
 
 </body>
