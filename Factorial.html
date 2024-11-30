@@ -9,45 +9,61 @@
     <style>
         body {
             font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #6e7dff, #5560ea);
-            color: #333;
+            background: url('https://w0.peakpx.com/wallpaper/298/360/HD-wallpaper-neon-anime-electric-blue-magenta.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #fff;
             margin: 0;
             padding: 0;
+            overflow-x: hidden;
+        }
+
+        /* Dark semi-transparent overlay */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6); /* Dark overlay to enhance readability */
+            z-index: -1;
         }
 
         header {
-            background-color: #4CAF50;
-            color: white;
             text-align: center;
             padding: 30px 0;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 10px rgba(0, 255, 0, 0.4);
+            text-shadow: 0 0 10px rgba(72, 255, 137, 1), 0 0 20px #00ff00, 0 0 30px #00ff00;
         }
 
         header h1 {
             font-size: 48px;
             letter-spacing: 2px;
+            text-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00, 0 0 30px #00ff00;
         }
 
         .container {
             max-width: 600px;
             margin: 40px auto;
             padding: 40px;
-            background-color: #fff;
+            background-color: rgba(0, 0, 0, 0.6); /* Dark transparent background */
             border-radius: 15px;
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 15px 30px rgba(0, 255, 0, 0.3);
         }
 
         .container h2 {
             font-size: 32px;
-            color: #444;
+            color: #fff;
             margin-bottom: 20px;
             text-align: center;
+            text-shadow: 0 0 5px #ff4081, 0 0 10px #ff4081;
         }
 
         label {
             display: block;
             margin: 10px 0 5px;
             font-weight: bold;
+            color: #fff;
         }
 
         input[type="number"] {
@@ -57,10 +73,12 @@
             border: 1px solid #ccc;
             border-radius: 6px;
             box-sizing: border-box;
+            background-color: rgba(255, 255, 255, 0.2);
+            color: #fff;
         }
 
         button {
-            background-color: #4CAF50;
+            background-color: #00ff00;
             color: white;
             border: none;
             padding: 10px 15px;
@@ -68,21 +86,24 @@
             cursor: pointer;
             border-radius: 6px;
             transition: background-color 0.3s ease;
+            text-shadow: 0 0 5px #00ff00, 0 0 10px #00ff00;
         }
 
         button:hover {
             background-color: #45a049;
+            text-shadow: 0 0 15px #ff4081, 0 0 30px #ff4081;
         }
 
         .result {
             margin-top: 20px;
             font-size: 20px;
             font-weight: bold;
-            color: #333;
+            color: #fff;
+            text-shadow: 0 0 5px #ff4081, 0 0 10px #ff4081;
         }
 
         footer {
-            background-color: #333;
+            background-color: rgba(0, 0, 0, 0.8);
             color: white;
             text-align: center;
             padding: 15px;
@@ -90,10 +111,12 @@
             width: 100%;
             bottom: 0;
             font-size: 14px;
+            box-shadow: 0 4px 10px rgba(0, 255, 0, 0.3);
         }
 
         footer p {
             margin: 0;
+            text-shadow: 0 0 10px #ff4081, 0 0 20px #ff4081;
         }
     </style>
 </head>
