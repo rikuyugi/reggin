@@ -119,6 +119,9 @@
         <div class="result" id="factorialResult"></div>
         <div class="result" id="sumResult"></div>
         <div class="result" id="averageResult"></div>
+
+        <!-- Back to Main Page button -->
+        <button onclick="goBack()">Back to Main Page</button>
     </div>
 
     <footer>
@@ -160,6 +163,11 @@
             document.getElementById("sumResult").innerHTML = `Sum of first ${n} natural numbers is ${sum}.`;
             document.getElementById("averageResult").innerHTML = `Average of first ${n} natural numbers is ${average.toFixed(2)}.`;
         });
+
+        // Back button function
+        function goBack() {
+            window.location.href = "index.html";  // Assuming index.html is your main page
+        }
     </script>
 
 </body>
