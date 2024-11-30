@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet"> 
     <style>
+        /* Your existing styles */
         body {
             font-family: 'Poppins', sans-serif;
             background: url('https://w0.peakpx.com/wallpaper/298/360/HD-wallpaper-neon-anime-electric-blue-magenta.jpg') no-repeat center center fixed;
@@ -153,6 +154,8 @@
             <p class="result" id="feetResult"></p>
         </div>
 
+        <!-- Back to Main Page button -->
+        <button onclick="goBack()">Back to Main Page</button>
     </div>
 
     <footer>
@@ -199,8 +202,4 @@
             }
             var meters = feet / 3.28084;
             document.getElementById('feetResult').innerHTML = `${feet} feet is equal to ${meters.toFixed(2)} meters`;
-        }
-    </script>
-
-</body>
-</html>
+       
