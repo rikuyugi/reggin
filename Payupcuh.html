@@ -136,6 +136,11 @@
     </footer>
 
     <script>
+        // Logging function to track deletions/changes
+        function logAction(action, details) {
+            console.log(`[${new Date().toISOString()}] ${action}: ${details}`);
+        }
+
         // Handle the form submission to calculate the payroll
         document.getElementById("payrollForm").addEventListener("submit", function(event) {
             event.preventDefault();
@@ -150,10 +155,21 @@
 
             // Display result
             document.getElementById("result").innerHTML = `<strong>${name}</strong>'s total pay is ₱${pay.toFixed(2)}.`;
+
+            // Log the calculation action
+            logAction("Payroll Calculated", `Employee: ${name}, Hours: ${hours}, Rate: ₱${rate}, Pay: ₱${pay.toFixed(2)}`);
+        });
+
+        // Log changes to input fields
+        document.querySelectorAll("input").forEach(input => {
+            input.addEventListener("input", function() {
+                logAction("Input Changed", `Field: ${input.name}, New Value: ${input.value}`);
+            });
         });
 
         // Function to navigate back to the main page
         function goBack() {
+            logAction("Navigation", "Back to main page");
             window.location.href = "index.html";  // Adjust to your main page file name
         }
     </script>
