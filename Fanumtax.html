@@ -5,10 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Income Tax Calculator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #6e7dff, #5560ea);
             color: #333;
             margin: 0;
             padding: 0;
@@ -18,40 +19,55 @@
             background-color: #4CAF50;
             color: white;
             text-align: center;
-            padding: 20px 0;
+            padding: 30px 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            font-size: 48px;
+            letter-spacing: 2px;
         }
 
         .content {
             max-width: 600px;
-            margin: 30px auto;
-            padding: 20px;
+            margin: 40px auto;
+            padding: 40px;
             background-color: #fff;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
+            border-radius: 15px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
         }
 
-        h1 {
+        .content h2 {
+            font-size: 32px;
+            color: #444;
+            margin-bottom: 20px;
             text-align: center;
         }
 
         label {
-            font-size: 18px;
-            margin-bottom: 8px;
             display: block;
+            margin: 10px 0 5px;
+            font-weight: bold;
         }
 
-        input[type="number"], button {
-            padding: 10px;
-            font-size: 16px;
+        input[type="number"] {
             width: 100%;
-            margin-top: 10px;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            box-sizing: border-box;
         }
 
         button {
             background-color: #4CAF50;
             color: white;
             border: none;
+            padding: 10px 15px;
+            font-size: 16px;
             cursor: pointer;
+            border-radius: 6px;
+            transition: background-color 0.3s ease;
         }
 
         button:hover {
@@ -69,10 +85,15 @@
             background-color: #333;
             color: white;
             text-align: center;
-            padding: 10px 0;
+            padding: 15px;
             position: fixed;
             width: 100%;
             bottom: 0;
+            font-size: 14px;
+        }
+
+        footer p {
+            margin: 0;
         }
     </style>
 </head>
@@ -83,11 +104,9 @@
     </header>
 
     <div class="content">
-        <label for="income">Enter Your Taxable Income (PHP):</label>
+        <h2>Enter Your Taxable Income (PHP):</h2>
         <input type="number" id="income" placeholder="Enter your taxable income" min="0">
-
         <button onclick="calculateTax()">Calculate Tax</button>
-
         <div class="result" id="taxResult"></div>
     </div>
 
