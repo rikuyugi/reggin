@@ -16,7 +16,6 @@
             overflow-x: hidden;
         }
 
-        /* Dark semi-transparent overlay */
         body::before {
             content: '';
             position: absolute;
@@ -24,7 +23,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0); /* Dark overlay to enhance readability */
+            background: rgba(0, 0, 0, 0);
             z-index: -1;
         }
 
@@ -32,7 +31,7 @@
             max-width: 600px;
             margin: 40px auto;
             padding: 40px;
-            background-color: rgba(0, 0, 0, 0.6); /* Dark transparent background */
+            background-color: rgba(0, 0, 0, 0.6);
             border-radius: 15px;
             box-shadow: 0 15px 30px rgba(0, 255, 0, 0.3);
         }
@@ -107,19 +106,40 @@
             text-shadow: 0 0 10px #ff4081, 0 0 20px #ff4081;
         }
 
-        /* Log Container with scroll and max height */
         .log-container {
             margin-top: 20px;
             font-size: 14px;
             color: #fff;
             text-align: left;
             white-space: pre-wrap;
-            max-height: 200px; /* Limit the height */
-            overflow-y: scroll; /* Make it scrollable */
-            background-color: rgba(0, 0, 0, 0.8); /* Add slight background to make logs visible */
+            max-height: 200px;
+            overflow-y: scroll;
+            background-color: rgba(0, 0, 0, 0.8);
             padding: 10px;
             border-radius: 6px;
             box-shadow: 0 4px 10px rgba(0, 255, 0, 0.3);
+        }
+
+        .payroll-list {
+            margin-top: 20px;
+            color: #fff;
+            font-size: 16px;
+            text-align: center;
+        }
+
+        .payroll-list table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .payroll-list th, .payroll-list td {
+            padding: 10px;
+            text-align: center;
+            border: 1px solid #ccc;
+        }
+
+        .payroll-list th {
+            background-color: #333;
         }
 
     </style>
@@ -149,6 +169,24 @@
         <!-- Delete All Logs button -->
         <button onclick="clearLogs()">Delete All Logs</button>
 
+        <!-- Payroll List -->
+        <div class="payroll-list" id="payrollList">
+            <h3>Payroll List</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Employee Name</th>
+                        <th>Hours Worked</th>
+                        <th>Hourly Rate (₱)</th>
+                        <th>Total Pay (₱)</th>
+                    </tr>
+                </thead>
+                <tbody id="payrollTableBody">
+                    <!-- Payroll rows will be added here dynamically -->
+                </tbody>
+            </table>
+        </div>
+
         <div class="log-container" id="logContainer">
             <!-- Logs will appear here -->
         </div>
@@ -160,56 +198,68 @@
 
     <script>
         let logMessages = [];
+        let payrollList = [];
 
-        // Logging function to track deletions/changes
         function logAction(action, details) {
             const logMessage = `[${new Date().toISOString()}] ${action}: ${details}`;
             logMessages.push(logMessage);
             displayLogs();
         }
 
-        // Display logs in the log container
         function displayLogs() {
             document.getElementById("logContainer").textContent = logMessages.join("\n");
         }
 
-        // Handle the form submission to calculate the payroll
         document.getElementById("payrollForm").addEventListener("submit", function(event) {
             event.preventDefault();
 
-            // Get form values
             const name = document.getElementById("name").value;
             const hours = parseFloat(document.getElementById("hours").value);
             const rate = parseFloat(document.getElementById("rate").value);
 
-            // Calculate total pay
             const pay = hours * rate;
 
-            // Display result
             document.getElementById("result").innerHTML = `<strong>${name}</strong>'s total pay is ₱${pay.toFixed(2)}.`;
 
             // Log the calculation action
             logAction("Payroll Calculated", `Employee: ${name}, Hours: ${hours}, Rate: ₱${rate}, Pay: ₱${pay.toFixed(2)}`);
+
+            // Add payroll to list
+            payrollList.push({ name, hours, rate, pay });
+            updatePayrollList();
         });
 
-        // Log changes to input fields
+        function updatePayrollList() {
+            const tableBody = document.getElementById("payrollTableBody");
+            tableBody.innerHTML = "";
+
+            payrollList.forEach(employee => {
+                const row = document.createElement("tr");
+                row.innerHTML = `
+                    <td>${employee.name}</td>
+                    <td>${employee.hours}</td>
+                    <td>₱${employee.rate.toFixed(2)}</td>
+                    <td>₱${employee.pay.toFixed(2)}</td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+
         document.querySelectorAll("input").forEach(input => {
             input.addEventListener("input", function() {
                 logAction("Input Changed", `Field: ${input.name}, New Value: ${input.value}`);
             });
         });
 
-        // Function to navigate back to the main page
         function goBack() {
             logAction("Navigation", "Back to main page");
-            window.location.href = "index.html";  // Adjust to your main page file name
+            window.location.href = "index.html";
         }
 
-        // Function to clear all logs
         function clearLogs() {
             logMessages = [];
             displayLogs();
-            console.clear();  // Optionally clears the browser console
+            console.clear();
             logAction("Logs Cleared", "All logs have been deleted.");
         }
     </script>
