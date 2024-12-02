@@ -6,15 +6,15 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-            background: url('https://w0.peakpx.com/wallpaper/298/360/HD-wallpaper-neon-anime-electric-blue-magenta.jpg') no-repeat center center fixed;
-            background-size: cover;
-            color: #fff;
-            margin: 0;
-            padding: 0;
-            overflow-x: hidden;
-        }
+         body {
+    font-family: 'Poppins', sans-serif;
+    background: url('https://media.tenor.com/i8hLKu4agLgAAAAM/toothless-dancing.gif') no-repeat center top; 
+    background-size: cover;
+    color: #fff;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
 
         body::before {
             content: '';
@@ -142,6 +142,43 @@
             background-color: #333;
         }
 
+        /* Audio Controls */
+        .audio-controls {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 8px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 255, 0, 0.5);
+            font-size: 14px;
+        }
+
+        .audio-controls button {
+            background-color: #00ff00;
+            color: white;
+            border: none;
+            padding: 8px;
+            margin: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+            text-shadow: 0 0 10px #00ff00;
+            font-size: 14px;
+        }
+
+        .audio-controls button:hover {
+            background-color: #ff4081;
+            text-shadow: 0 0 15px #ff4081, 0 0 30px #ff4081;
+        }
+
+        .audio-controls input[type="range"] {
+            background-color: #00ff00;
+            border: none;
+            height: 8px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 80px;
+        }
     </style>
 </head>
 <body>
@@ -196,7 +233,71 @@
         <p>&copy; 2024 Simple Payroll - All rights reserved.</p>
     </footer>
 
+    <!-- Audio Controls for Background Music -->
+    <div class="audio-controls">
+        <button id="toggle-music">Pause</button>
+        <br>
+        <input type="range" id="volume-control" min="0" max="1" step="0.01" value="1">
+    </div>
+
+    <!-- YouTube Background Music Player -->
+    <div id="player" style="display: none;"></div>
+
     <script>
+        // YouTube Player API for background music
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+        var player;
+        var isPlaying = true;
+
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('player', {
+                height: '0',
+                width: '0',
+                videoId: '9MCiixIkzUk', // Example music video
+                playerVars: {
+                    autoplay: 1,
+                    loop: 1,
+                    playlist: '9MCiixIkzUk', 
+                    mute: 0
+                },
+                events: {
+                    'onReady': onPlayerReady,
+                    'onStateChange': onPlayerStateChange
+                }
+            });
+        }
+
+        function onPlayerReady(event) {
+            event.target.playVideo();
+        }
+
+        function onPlayerStateChange(event) {
+            if (event.data === YT.PlayerState.PLAYING && !isPlaying) {
+                event.target.pauseVideo();
+            }
+        }
+
+        // Handle Audio Controls
+        document.getElementById('toggle-music').addEventListener('click', function() {
+            if (isPlaying) {
+                player.pauseVideo();
+                this.textContent = "Play";
+            } else {
+                player.playVideo();
+                this.textContent = "Pause";
+            }
+            isPlaying = !isPlaying;
+        });
+
+        document.getElementById('volume-control').addEventListener('input', function(event) {
+            player.setVolume(event.target.value * 100);
+        });
+
+        // Payroll Form Submission and Log Functions
         let logMessages = [];
         let payrollList = [];
 
@@ -221,10 +322,8 @@
 
             document.getElementById("result").innerHTML = `<strong>${name}</strong>'s total pay is ₱${pay.toFixed(2)}.`;
 
-            // Log the calculation action
             logAction("Payroll Calculated", `Employee: ${name}, Hours: ${hours}, Rate: ₱${rate}, Pay: ₱${pay.toFixed(2)}`);
 
-            // Add payroll to list
             payrollList.push({ name, hours, rate, pay });
             updatePayrollList();
         });
@@ -244,12 +343,6 @@
                 tableBody.appendChild(row);
             });
         }
-
-        document.querySelectorAll("input").forEach(input => {
-            input.addEventListener("input", function() {
-                logAction("Input Changed", `Field: ${input.name}, New Value: ${input.value}`);
-            });
-        });
 
         function goBack() {
             logAction("Navigation", "Back to main page");
